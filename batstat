@@ -1,3 +1,4 @@
+echo ""
 for bat in BAT0 BAT1; do
     echo "$bat:"
 
@@ -8,12 +9,15 @@ for bat in BAT0 BAT1; do
     loss=$(( design - full ))
 
     awk -v capacity=$capacity -v full=$full -v design=$design -v loss=$loss -v cycles=$cycles '
+
     BEGIN {
-		printf "POWER_SUPPLY_CAPACITY=%.0f%\n", capacity
-        printf "POWER_SUPPLY_ENERGY_FULL_DESIGN=%.2f Wh\n", design/1000000
-        printf "POWER_SUPPLY_ENERGY_FULL=%.2f Wh\n", full/1000000
-        printf "POWER_SUPPLY_ENERGY_LOSS=%.2f Wh (%d%% degradation)\n", loss/1000000, loss*100/design
-        printf "POWER_SUPPLY_CYCLE_COUNT=%d\n", cycles
+        o = "\033[0;33m"
+        r = "\033[0m"
+        printf o "POWER_SUPPLY_CAPACITY"            r "=%.0f%\n",                          capacity
+        printf o "POWER_SUPPLY_ENERGY_FULL_DESIGN"  r "=%.2f Wh\n",                         design/1000000
+        printf o "POWER_SUPPLY_ENERGY_FULL"         r "=%.2f Wh\n",                         full/1000000
+        printf o "POWER_SUPPLY_ENERGY_LOSS"         r "=%.2f Wh (%d%% degradation)\n",      loss/1000000, loss*100/design
+        printf o "POWER_SUPPLY_CYCLE_COUNT"         r "=%d\n",                              cycles
     }'
     echo
 done
