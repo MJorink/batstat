@@ -1,5 +1,5 @@
+PREFIX ?= /usr/local
 CFLAGS ?= -O2 -Wall -Wextra -std=c99
-PREFIX ?= $(HOME)/.local
 
 batstat: batstat.c
 
@@ -9,4 +9,4 @@ install: batstat
 clean:
 	rm -f batstat
 
-.PHONY: install test clean
+.PHONY: install clean
